@@ -1,0 +1,212 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+#title {
+    color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    text-align: center;
+    font-family: "Courier New", monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9em;
+    padding-top: 20px;
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease-out;
+}
+
+#title h1 {
+    margin: 0;
+    font-weight: 400;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.stats {
+    margin-top: 10px;
+    font-size: 0.8em;
+    opacity: 0.7;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+}
+
+#rewardButton {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    background-color: #ffcee9;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(210, 131, 167, 0.5);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    animation: buttonAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    margin-top: 100px;
+}
+
+#rewardButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+    opacity: 0.5;
+}
+
+#rewardButton::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 60%);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#rewardButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px rgba(255, 62, 62, 0.8);
+    background-color: #ff5252;
+}
+
+#rewardButton:active {
+    transform: scale(0.92);
+    transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#rewardButton.flash::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reward-text {
+    margin-top: 30px;
+    font-size: 24px;
+    min-height: 40px;
+    opacity: 0;
+    transform: scale(0.5) translateY(-20px);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    color: white;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+    position: absolute;
+    width: 100%;
+    left: 0;
+    pointer-events: none;
+    font-family: "Courier New", monospace;
+    letter-spacing: 1px;
+}
+
+.reward-text.show {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* Reward rarity styles */
+.reward-text.common {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    font-size: 24px;
+}
+
+.reward-text.uncommon {
+    color: #00ff00;
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+    font-size: 26px;
+}
+
+.reward-text.rare {
+    color: #00ffff;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+    font-size: 28px;
+    animation: glitchText 0.5s steps(2) infinite;
+}
+
+.reward-text.epic {
+    color: #ff00ff;
+    text-shadow: 0 0 25px rgba(255, 0, 255, 0.9);
+    font-size: 30px;
+    animation: glitchText 0.4s steps(2) infinite;
+}
+
+.reward-text.legendary {
+    color: #ffd700;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 1);
+    font-size: 32px;
+    animation: glitchText 0.3s steps(2) infinite;
+}
+
+.reward-text.mythic {
+    color: #ff0000;
+    text-shadow: 0 0 35px rgba(255, 0, 0, 1),
+                 0 0 45px rgba(255, 0, 0, 0.8);
+    font-size: 34px;
+    animation: glitchText 0.2s steps(2) infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    35% { transform: scale(1.12); }
+    70% { transform: scale(0.98); }
+    100% { transform: scale(1); }
+}
+
+@keyframes buttonAppear {
+    0% { transform: scale(0.3); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shakeText {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    20% { transform: scale(1.1) rotate(-2deg); }
+    40% { transform: scale(1.1) rotate(2deg); }
+    60% { transform: scale(1.1) rotate(-2deg); }
+    80% { transform: scale(1.1) rotate(2deg); }
+}
+
+@keyframes rainbowText {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes glitchText {
+    0% { transform: translate(0); }
+    25% { transform: translate(-2px, 2px); }
+    50% { transform: translate(2px, -2px); }
+    75% { transform: translate(-2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+.pulse {
+    animation: pulse 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+} 
